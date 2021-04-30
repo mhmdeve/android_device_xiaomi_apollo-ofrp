@@ -3,7 +3,7 @@ For building TWRP for Xiaomi Redmi K30 Pro
 
 TWRP device tree for Xiaomi Redmi K30 Pro
 
-Kernel,Dtbo,Dtb均提取至MIUI20.11.5-Android11
+Kernel,Dtbo,Dtb均提取至MIUI21.4.28-Android11
 
 ## 手机参数
 
@@ -47,21 +47,26 @@ source ~/bashrc
 ccache -M 50G
 ```
 
-创建进入Twrp文件夹
+准备构建环境
 ```
-mkdir -p twrp&&cd twrp
+sudo apt install git aria2 -y
+git clone https://gitlab.com/OrangeFox/misc/scripts
+cd scripts
+sudo bash setup/android_build_env.sh
+sudo bash setup/install_android_sdk.sh
 ```
 
-同步Twrp的omni最小Tree:
+同步OrangeFox tree:
 ```
-repo init -u git://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-10.0
-repo sync -j8
+mkdir ~/OrangeFox_10
+cd ~/OrangeFox_10
+rsync rsync://sources.orangefox.download/sources/fox_10.0 . --progress -a
 ```
 
 添加这个项目到 .repo/manifest.xml:
 
 ```xml
-<project path="device/xiaomi/lmi" name="LittleTurtle2333/android_device_xiaomi_lmi-twrp" remote="github" revision="android-11.0" />
+<project path="device/xiaomi/lmi" name="KyuoFoxHuyu/android_device_xiaomi_lmi-ofrp" remote="github" revision="R11.0" />
 ```
 
 同步Device Tree:
@@ -71,8 +76,8 @@ repo sync --force-sync device/xiaomi/lmi
 
 开始编译:
 ```
-. build/envsetup.sh
-lunch omni_cmi-eng
+source build/envsetup.sh
+lunch omni_lmi-eng
 mka recoveryimage ALLOW_MISSING_DEPENDENCIES=true # Only if you use minimal twrp tree.
 ```
 
