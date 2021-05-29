@@ -25,6 +25,10 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_HOST_PACKAGES += \
     libandroidicu
+    
+# OEM otacert
+PRODUCT_EXTRA_RECOVERY_KEYS += \
+    vendor/recovery/security/miui
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
