@@ -1,54 +1,55 @@
-# android_device_xiaomi_lmi-twrp
-For building TWRP for Xiaomi Redmi K30 Pro
+# android_device_xiaomi_lmi
+For building OFRP for Redmi K30 Pro
 
-TWRP device tree for Xiaomi Redmi K30 Pro
+OFRP device tree for Redmi K30 Pro
 
-Kernel,Dtbo,Dtb均提取至MIUI21.4.28-Android11
+Kernel and all blobs are extracted from [miui_LMI_21.6.23_c35d67a8d7_11.0](https://hugeota.d.miui.com/21.6.23/miui_LMI_21.6.23_c35d67a8d7_11.0.zip) firmware.
 
-## 手机参数
+The Redmi K30 Pro (codenamed _"lmi"_) is high-end smartphones from Redmi.
 
-| Device       | Xiaomi Redmi K30 Pro                           |
+Redmi K30 Pro was announced and released in February 2020.
+
+## Device specifications
+
+| Device       | Redmi K30 Pro                       |
 | -----------: | :------------------------------------------ |
-| SoC          | 高通 骁龙865              |
-| 初始版本 | Android10.0                               |
+| SoC          | Qualcomm SM8250 Snapdragon 865              |
+| CPU          | 8x Qualcomm® Kryo™ 585 up to 2.84GHz        |
+| GPU          | Adreno 630                                  |
+| Memory       | 8GB / 12GB RAM (LPDDR5)                     |
+| Shipped Android version | 10                               |
+| Storage      | 128GB / 256GB / 512GB UFS 3.1 flash storage |
+| Battery      | Non-removable Li-Po 4700mAh                 |
+| Dimensions   | 163.3 x 75.4 x 8.9 mm                     |
+| Display      | 24000 x 1080 (19.5:9), 6.67 inch             |
 
+## Device picture
 
-## 特性
+![Redmi K30 Pro](pictures/lmi.jpg)
 
-**支持**
-- 启动
+## Features
+
+**Works**
+
+- Booting.
+- [Decryption](https://github.com/simonsmh/android_bootable_recovery/commits/android-10.0).
 - ADB
 - MTP
-- 动态分区
-- USB-OTG
+- Super partition functions
+- Vibration
 
-**不支持**
-- 震动
-- ADB sideload
-- 解密(安卓11不支持)
+**Not Working**
+- OTG
 
+Redmi K30 Pro is using Dynamic Partition! We need update from TWRP.
 
-## 编译
+## Compile
 
-安装环境
+Prepare the build environment
+
 ```
-sudo apt update&&sudo apt install git-core gnupg flex bison gperf zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache 
+sudo apt update && sudo apt install git-core gnupg flex bison gperf zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache 
 libgl1-mesa-dev libxml2-utils xsltproc unzip openjdk-8-jdk build-essential git repo fastboot adb
-```
-配置ccache
-```
-# 启用ccache
-export USE_CCACHE=1
-# 改变ccache缓存路径
-export CCACHE_DIR=~/.ccache
-# 生效
-source ~/bashrc
-# 配置ccache大小
-ccache -M 50G
-```
-
-准备构建环境
-```
 sudo apt install git aria2 -y
 git clone https://gitlab.com/OrangeFox/misc/scripts
 cd scripts
@@ -56,37 +57,47 @@ sudo bash setup/android_build_env.sh
 sudo bash setup/install_android_sdk.sh
 ```
 
-同步OrangeFox tree:
+Configure ccache
+```
+# Enable ccache
+export USE_CCACHE=1
+# Change the ccache cache path
+export CCACHE_DIR=~/.ccache
+# Take effect
+source ~/bashrc
+# Configure ccache size
+ccache -M 50G
+```
+
+First checkout minimal ofrp with omnirom tree:
+
 ```
 mkdir ~/OrangeFox_10
 cd ~/OrangeFox_10
 rsync rsync://sources.orangefox.download/sources/fox_10.0 . --progress -a
 ```
 
-添加这个项目到 .repo/manifest.xml:
+Then add these projects to .repo/manifest.xml:
 
 ```xml
 <project path="device/xiaomi/lmi" name="KyuoFoxHuyu/android_device_xiaomi_lmi-ofrp" remote="github" revision="R11.0" />
 ```
 
-同步Device Tree:
-```
-repo sync --force-sync device/xiaomi/lmi
-```
+Finally execute these:
 
-开始编译:
 ```
-source build/envsetup.sh
+. build/envsetup.sh
 lunch omni_lmi-eng
 mka recoveryimage ALLOW_MISSING_DEPENDENCIES=true # Only if you use minimal twrp tree.
 ```
 
-临时测试:
+To test it:
+
 ```
 fastboot boot out/target/product/lmi/recovery.img
 ```
 
-刷入:
-```
-fastboot flash recovery out/target/product/lmi/recovery.img
-```
+## Thanks
+- [FsCrypt fix by mauronofrio](https://github.com/mauronofrio/android_bootable_recovery)
+- [Decryption by bigbiff](https://github.com/bigbiff/android_bootable_recovery)
+- [Oneplus 8 TWRP by mauronofrio](https://github.com/mauronofrio/android_device_oneplus_instantnoodle_TWRP)
