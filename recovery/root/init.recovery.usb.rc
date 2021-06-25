@@ -143,3 +143,11 @@ on property:sys.usb.config=fastboot
     start servicemanager
     start hwservicemanager
     restart fastbootd
+    
+service fastbootd /system/bin/fastbootd
+    disabled
+    group system
+    seclabel u:r:fastbootd:s0
+
+on property:sys.usb.config=fastboot
+    start fastbootd
