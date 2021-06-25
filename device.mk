@@ -21,7 +21,6 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl \
     android.hardware.boot@1.0-impl.recovery \
     android.hardware.boot@1.0-impl-wrapper.recovery \
-    android.hardware.fastboot@1.0-impl-mock.recovery \
 
 PRODUCT_HOST_PACKAGES += \
     libandroidicu
@@ -30,6 +29,12 @@ PRODUCT_HOST_PACKAGES += \
 PRODUCT_PACKAGES_ENG += \
     qcom_decrypt \
     qcom_decrypt_fbe
+
+# fastbootd stuff 
+PRODUCT_PACKAGES += \
+    fastbootd \
+    android.hardware.fastboot@1.0-impl-mock \
+    android.hardware.fastboot@1.0-impl-mock.recovery
     
 # OEM otacert
 PRODUCT_EXTRA_RECOVERY_KEYS += \

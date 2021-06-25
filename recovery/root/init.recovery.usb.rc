@@ -129,3 +129,17 @@ on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb && property:sys.u
     symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
     setprop sys.usb.state ${sys.usb.config}
+
+on property:ro.boot.recover_usb=*
+    write /sys/bus/platform/devices/a600000.ssusb/mode "peripheral"
+
+on property:ro.boot.usbconfigfs=false
+   setprop sys.usb.configfs 0
+
+on property:ro.boot.usbcontroller=*
+    setprop sys.usb.controller ${ro.boot.usbcontroller}
+
+on property:sys.usb.config=fastboot
+    start servicemanager
+    start hwservicemanager
+    restart fastbootd
