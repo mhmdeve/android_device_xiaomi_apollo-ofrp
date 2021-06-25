@@ -41,6 +41,7 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
  	export TARGET_DEVICE_ALT="lmi"
 	
 	export OF_KEEP_FORCED_ENCRYPTION=1
+	export OF_KEEP_DM_VERITY_FORCED_ENCRYPTION=1
 	export OF_PATCH_AVB20=1
 	export OF_DONT_PATCH_ENCRYPTED_DEVICE=1	
  
@@ -56,6 +57,11 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 	export FOX_USE_TAR_BINARY=1
 	export FOX_DELETE_AROMAFM=1
 	export OF_SKIP_MULTIUSER_FOLDERS_BACKUP=1
+	export FOX_ADVANCED_SECURITY=1
+	export FOX_DELETE_AROMAFM=1
+	export OF_FBE_METADATA_MOUNT_IGNORE=1
+	export OF_NO_RELOAD_AFTER_DECRYPTION=1
+	export OF_CHECK_OVERWRITE_ATTEMPTS=1
 	export OF_QUICK_BACKUP_LIST="/boot;/data;/system_image;/vendor_image;"
 
     # use system (ROM) fingerprint where available
