@@ -35,10 +35,6 @@ PRODUCT_PACKAGES += \
     fastbootd \
     android.hardware.fastboot@1.0-impl-mock \
     android.hardware.fastboot@1.0-impl-mock.recovery
-    
-# OEM otacert
-PRODUCT_EXTRA_RECOVERY_KEYS += \
-    vendor/recovery/security/miui
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
