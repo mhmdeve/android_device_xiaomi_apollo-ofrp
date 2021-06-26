@@ -1,5 +1,6 @@
 cc_library_static {
     name: "libinit_lmi",
+    shared_libs: ["libbase"],
     include_dirs: [
         "system/core/base/include",
         "system/core/init",
