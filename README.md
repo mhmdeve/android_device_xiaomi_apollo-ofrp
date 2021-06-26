@@ -1,7 +1,7 @@
 # android_device_xiaomi_lmi
-For building OFRP for Redmi K30 Pro
+For building TWRP for Redmi K30 Pro
 
-OFRP device tree for Redmi K30 Pro
+TWRP device tree for Redmi K30 Pro
 
 Kernel and all blobs are extracted from [miui_LMI_21.6.23_c35d67a8d7_11.0](https://hugeota.d.miui.com/21.6.23/miui_LMI_21.6.23_c35d67a8d7_11.0.zip) firmware.
 
@@ -45,18 +45,6 @@ Redmi K30 Pro is using Dynamic Partition! We need update from TWRP.
 
 ## Compile
 
-Prepare the build environment
-
-```
-sudo apt update && sudo apt install git-core gnupg flex bison gperf zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache 
-libgl1-mesa-dev libxml2-utils xsltproc unzip openjdk-8-jdk build-essential git repo fastboot adb
-sudo apt install git aria2 -y
-git clone https://gitlab.com/OrangeFox/misc/scripts
-cd scripts
-sudo bash setup/android_build_env.sh
-sudo bash setup/install_android_sdk.sh
-```
-
 Configure ccache
 ```
 # Enable ccache
@@ -69,12 +57,11 @@ source ~/bashrc
 ccache -M 50G
 ```
 
-First checkout minimal ofrp with omnirom tree:
+First checkout minimal twrp with aosp tree:
 
 ```
-mkdir ~/OrangeFox_10
-cd ~/OrangeFox_10
-rsync rsync://sources.orangefox.download/sources/fox_10.0 . --progress -a
+repo init -u git://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11.0
+repo sync
 ```
 
 Then add these projects to .repo/manifest.xml:

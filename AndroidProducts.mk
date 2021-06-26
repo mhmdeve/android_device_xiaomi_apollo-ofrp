@@ -15,9 +15,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_lmi.mk
+    $(LOCAL_DIR)/twrp_lmi.mk
 
 COMMON_LUNCH_CHOICES := \
-    omni_lmi-eng \
-    omni_lmi-user \
-    omni_lmi-userdebug
+    twrp_lmi-eng \
+    twrp_lmi-user \
+    twrp_lmi-userdebug

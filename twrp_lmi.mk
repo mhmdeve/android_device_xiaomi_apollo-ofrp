@@ -21,14 +21,14 @@ DEVICE_PATH := device/xiaomi/lmi
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_minimal.mk)
 
 # Inherit from our custom product configuration
-$(call inherit-product, vendor/omni/config/common.mk)
+$(call inherit-product, vendor/twrp/config/common.mk)
 
 # Inherit from hardware-specific part of the product configuration
 $(call inherit-product, $(DEVICE_PATH)/device.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := lmi
-PRODUCT_NAME := omni_lmi
+PRODUCT_NAME := twrp_lmi
 PRODUCT_BRAND := Redmi
 PRODUCT_MODEL := Lmi
 PRODUCT_MANUFACTURER := Xiaomi
